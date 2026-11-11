@@ -125,11 +125,14 @@ export function CompareDock({ selected, onClear, notify }) {
         <div id="compare-dock">
           <span>{selected.length} de 3 modelos selecionados</span>
           <button
-            onClick={() =>
-              selected.length < 2
-                ? notify('Selecione pelo menos dois modelos para comparar.')
-                : setOpen(true)
-            }
+            onClick={() => {
+              if (selected.length < 2) {
+                window.location.hash = 'modelos';
+                notify('Escolha outro modelo para comparar.');
+              } else {
+                setOpen(true);
+              }
+            }}
           >
             Comparar modelos ⇄
           </button>

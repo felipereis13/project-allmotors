@@ -72,6 +72,45 @@ describe('catálogo e navegação', () => {
     expect(screen.getByText('Destaque 2 de 3: AIMA Liberty')).toBeTruthy();
   });
 
+  it('leva ao catálogo ao comparar um produto sozinho e preserva a seleção', async () => {
+    window.history.replaceState(null, '', '/#modelo/aima-liberty');
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(screen.getByRole('button', { name: 'Comparar ⇄' }));
+    await waitFor(() =>
+      expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(
+        'Encontre a sua AIMA.',
+      ),
+    );
+    expect(
+      screen.getByRole('checkbox', { name: 'Comparar Liberty' }).checked,
+    ).toBe(true);
+    expect(
+      screen.getAllByRole('checkbox', { name: /^Comparar / }),
+    ).toHaveLength(14);
+    await user.click(
+      screen.getByRole('checkbox', { name: 'Comparar Q5 Dimoon' }),
+    );
+    await user.click(
+      screen.getByRole('button', { name: 'Comparar modelos ⇄' }),
+    );
+    expect(
+      within(screen.getByRole('dialog')).getAllByRole('columnheader'),
+    ).toHaveLength(3);
+  });
+
+  it('mantém a página do produto quando já há outro modelo selecionado', async () => {
+    window.history.replaceState(null, '', '/#modelo/aima-liberty');
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(
+      screen.getAllByRole('checkbox', { name: /^Comparar / })[0],
+    );
+    await user.click(screen.getByRole('button', { name: 'Comparar ⇄' }));
+    expect(window.location.hash).toBe('#modelo/aima-liberty');
+    expect(screen.getByText('2 de 3 modelos selecionados')).toBeTruthy();
+  });
+
   it('limita a comparação a três modelos e sincroniza a limpeza', async () => {
     const user = userEvent.setup();
     render(<App />);

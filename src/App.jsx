@@ -172,7 +172,18 @@ export default function App() {
           </>
         )}
         {model && (
-          <Product model={model} {...catalogProps} onContact={openContact} />
+          <Product
+            model={model}
+            {...catalogProps}
+            onContact={openContact}
+            onCompare={() => {
+              toggle(model.id, true);
+              if (new Set([...selected, model.id]).size < 2) {
+                window.location.hash = 'modelos';
+                notify('Escolha outro modelo para comparar.');
+              }
+            }}
+          />
         )}
         {route === 'comparar' && <ComparePage selected={selected} />}
         {route === 'fontes' && <Sources />}

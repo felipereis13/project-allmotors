@@ -3,7 +3,13 @@ import { note, power, range, speed } from '../lib/catalog.js';
 import { ModelGrid } from '../components/ModelCard.jsx';
 import { Care } from '../components/Sections.jsx';
 
-export default function Product({ model, selected, onToggle, onContact }) {
+export default function Product({
+  model,
+  selected,
+  onToggle,
+  onContact,
+  onCompare,
+}) {
   const rows = [
     ['Potência nominal', power(model)],
     ['Autonomia máxima', range(model)],
@@ -49,10 +55,7 @@ export default function Product({ model, selected, onToggle, onContact }) {
             >
               Consultar condições ↗
             </button>
-            <button
-              className="outline"
-              onClick={() => onToggle(model.id, true)}
-            >
+            <button className="outline" onClick={onCompare}>
               Comparar ⇄
             </button>
           </div>
