@@ -1,87 +1,96 @@
-﻿# All Motors — React
+﻿# Catálogo Digital de Mobilidade Elétrica
 
-Catálogo responsivo de modelos AIMA, migrado para React com Vite. Mantém a identidade visual, os 14 modelos, os filtros, a comparação e o atendimento por unidade via WhatsApp.
+Aplicação web desenvolvida com React e Vite para apresentar produtos, facilitar a comparação de especificações e conectar visitantes ao atendimento comercial.
 
-## Executar
+Projeto desenvolvido para uma empresa real e apresentado neste repositório como parte de um portfólio de desenvolvimento front-end. Esta documentação se concentra na solução técnica, sem divulgar dados de identificação, contatos, endereços ou informações operacionais do cliente.
 
-Requer Node.js 22.20 ou superior e npm.
+## Sobre o projeto
+
+A aplicação reúne uma apresentação institucional e um catálogo interativo em uma interface responsiva. A experiência permite explorar modelos, consultar características técnicas e comparar opções antes de iniciar uma conversa com o atendimento.
+
+O desenvolvimento utiliza componentes React, gerenciamento de estado com hooks e separação entre dados, regras de negócio e apresentação.
+
+## Funcionalidades
+
+- Catálogo com busca por nome, filtros por categoria e autonomia mínima.
+- Ordenação por nome, autonomia ou potência.
+- Páginas de produto com imagens e especificações técnicas.
+- Comparação de até três modelos, com seleção mantida durante a navegação.
+- Fluxo de contato via WhatsApp e preparação de solicitações de retorno com consentimento.
+- Carrossel com controles manuais e interface adaptada a diferentes tamanhos de tela.
+- Navegação por teclado, foco visível e suporte à preferência por movimento reduzido.
+
+## Tecnologias
+
+| Tecnologia               | Aplicação                                        |
+| ------------------------ | ------------------------------------------------ |
+| React                    | Componentização, estado e interação da interface |
+| JavaScript               | Regras de catálogo, navegação e validação        |
+| CSS                      | Estilização e layout responsivo                  |
+| Vite                     | Servidor de desenvolvimento e build de produção  |
+| Vitest e Testing Library | Testes de componentes e interações               |
+| Node.js Test Runner      | Testes das regras de composição de mensagens     |
+| Prettier                 | Padronização da formatação                       |
+
+## Executar localmente
+
+Requisitos: **Node.js 22.20.0 ou superior** e **npm**.
+
+Na pasta do projeto, instale as dependências e inicie o servidor:
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
-Abra o endereço exibido pelo Vite, normalmente http://localhost:5173.
+Acesse o endereço informado no terminal pelo Vite.
 
-No PowerShell, se a política de execução bloquear `npm.ps1`, utilize `npm.cmd` no lugar de `npm`.
+No Windows, caso o PowerShell bloqueie a execução de `npm.ps1`, utilize `npm.cmd` nos comandos.
 
-## Build e validação
+## Comandos disponíveis
+
+| Comando           | Descrição                               |
+| ----------------- | --------------------------------------- |
+| `npm run dev`     | Inicia o ambiente de desenvolvimento    |
+| `npm test`        | Executa os testes de lógica e interface |
+| `npm run build`   | Gera a versão de produção em `dist/`    |
+| `npm run preview` | Permite conferir o build localmente     |
+| `npm run format`  | Formata o código e a documentação       |
+
+## Organização do código
+
+```text
+public/assets/      Recursos visuais
+src/
+  components/       Componentes de interface
+  data/             Dados utilizados pela aplicação
+  lib/              Funções de catálogo e validação de mensagens
+  pages/            Páginas de detalhes e informações
+  App.jsx           Composição da aplicação e navegação
+  main.jsx          Inicialização do React
+  style.css         Estilos globais e responsivos
+tests/              Testes de lógica e interação
+```
+
+## Decisões técnicas
+
+- **Componentização:** organização da interface em componentes para facilitar manutenção e evolução.
+- **Separação de responsabilidades:** dados e funções de domínio ficam separados da camada de apresentação.
+- **Navegação por hash:** acesso às páginas e seções sem exigir regras de reescrita de rotas na hospedagem estática.
+- **Estado em React:** controle da seleção de produtos, dos diálogos e das interações com hooks.
+- **Acessibilidade:** uso de elementos semânticos, rótulos de formulário e gerenciamento de foco nos fluxos de navegação e diálogo.
+
+## Validação
+
+A suíte de testes abrange filtros, ordenação, comparação de produtos, navegação, controles do carrossel e validação das mensagens de contato. Os testes de interface utilizam jsdom; a avaliação visual e responsiva deve ser realizada também em navegador.
 
 ```sh
 npm test
 npm run build
-npm run preview
 ```
 
-O build gera a pasta `dist/`, pronta para hospedagem estática. O preview serve esse build localmente. A navegação utiliza hashes (`#modelos`, `#modelo/aima-liberty`, `#comparar`), sem exigir configuração de rotas no servidor.
+## Escopo e uso
 
-Os 17 testes cobrem composição das mensagens, telefones, filtros, ordenação, comparação, navegação, foco dos controles do carrossel e solicitação de retorno com consentimento. Os testes de interface usam React Testing Library e jsdom; não substituem a conferência visual em um navegador real.
+A aplicação é um front-end com dados locais. O fluxo de contato prepara mensagens para envio pelo visitante no WhatsApp, sem armazenamento de leads em banco de dados ou envio automático.
 
-Para formatar o código:
-
-```sh
-npm run format
-```
-
-## Estrutura
-
-```text
-public/assets/       Imagens e logotipos originais
-src/
-  main.jsx           Inicialização do React
-  App.jsx            Navegação, seleção de modelos e estado dos diálogos
-  style.css          Sistema visual original e estilos responsivos
-  components/        Cabeçalho, rodapé, catálogo, cards, carrossel e atendimento
-  pages/             Detalhes de produto e informações/fontes
-  data/
-    products.js      Dados dos 14 modelos
-    units.js         Endereços e contatos das unidades
-  lib/
-    catalog.js       Filtros e apresentação de especificações
-    contact-message.js  Validação e composição das mensagens do WhatsApp
- tests/              Testes de mensagens e de interação da interface
-```
-
-A interface é renderizada em JSX, com estado e eventos React. Os antigos scripts globais e a montagem de páginas com `innerHTML` foram substituídos por componentes. Dados, regras de mensagem e apresentação ficam separados.
-
-## Catálogo e comparação
-
-A categoria Todos mostra os 14 modelos e limpa pesquisa e autonomia mínima. O catálogo completo permite filtrar por autonomia e ordenar por nome, autonomia ou potência. A comparação aceita até três modelos; a seleção permanece durante a navegação e pode ser limpa na barra inferior.
-
-O carrossel tem navegação manual, mantém os controles montados durante a troca e respeita `prefers-reduced-motion`.
-
-## Atendimento e retorno
-
-Os botões de contato abrem um diálogo para escolher Piedade, Pina ou Olinda. O visitante pode conversar agora ou solicitar retorno, informando nome, WhatsApp e melhor horário e marcando a opção de receber contato.
-
-A solicitação é preparada para envio pelo próprio visitante no WhatsApp da unidade. O site não salva leads em banco, não envia mensagens automaticamente e não promete horário de retorno. Os dados ficam somente na página, sem persistência no navegador. Para receber pedidos automaticamente sem WhatsApp, é necessário integrar um backend ou CRM.
-
-## Configurar unidades e produtos
-
-Edite `src/data/units.js` para alterar endereços e números de atendimento. Os números devem usar DDI 55 + DDD + número. As três unidades utilizam o atendimento geral informado pelo cliente; a mensagem identifica a unidade selecionada.
-
-- Piedade: Rua Coronel Francisco Galvão, 630, Piedade, Jaboatão dos Guararapes - PE.
-- Pina: Avenida Antônio de Góes, 549, Pina, Recife - PE.
-- Olinda: Rua Carmelita Muniz de Araújo, 105, Casa Caiada, Olinda - PE, em frente ao Shopping Patteo Olinda.
-
-Contatos e endereços de Pina e Olinda confirmados pelo cliente em 07/11/2026.
-
-Edite `src/data/products.js` para atualizar o catálogo. Coloque novas imagens em `public/assets/` e informe o nome do arquivo no campo `image`.
-
-## Acessibilidade
-
-Link para pular ao conteúdo, navegação por teclado, foco visível, diálogo nativo com restauração de foco, labels, estados de seleção e validação, consentimento para retorno e respeito à preferência por movimento reduzido. Não representa certificação de conformidade WCAG.
-
-## Imagens e informações
-
-Modelos e imagens: AIMA Brasil. Identidade visual e contato: All Motors Brasil. Dados consultados em 05/11/2026 e preservados na migração. Divergências nas especificações estão indicadas como sob consulta. Fontes Google exigem conexão; há fontes do sistema como alternativa. Não há preços, garantias ou condições de compra inventados.
+A publicação no portfólio tem finalidade de demonstração técnica. Marcas, imagens e conteúdos comerciais presentes na aplicação pertencem aos seus respectivos titulares; sua disponibilização neste repositório não implica autorização de uso ou redistribuição desses materiais.
