@@ -84,13 +84,12 @@ export function Technology() {
               Inteligente em cada detalhe.
             </h2>
           </div>
-          <p>
-          </p>
+          <p></p>
         </div>
         <div className="tech-grid">
           <article className="tech-card">
             <img
-              src="dist\assets\motor_atualizado.jpg"
+              src="public\assets\motor_atualizado.jpg"
               alt="Motor elétrico AIMA"
               loading="lazy"
             />
@@ -103,7 +102,7 @@ export function Technology() {
           </article>
           <article className="tech-card">
             <img
-              src="dist\assets\bateria_atualizado.jpg"
+              src="public\assets\bateria_atualizado.jpg"
               alt="Tecnologia de bateria AIMA"
               loading="lazy"
             />
@@ -116,7 +115,7 @@ export function Technology() {
           </article>
           <article className="tech-card">
             <img
-              src="dist\assets\desgin_atualizado.jpg"
+              src="public\assets\desgin_atualizado.jpg"
               alt="Detalhe do design AIMA"
               loading="lazy"
             />
